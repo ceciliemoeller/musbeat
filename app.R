@@ -88,7 +88,7 @@ welcome <-
       p("You can expect this to take 10-15 minutes."),
       p("Please note: You have to be at least 18 years old to participate."),
       HTML("<br>"),
-      p("The data you generate is completely anonymous. It will be used for research purposes and shared with other researchers in a publicly available research data repository. Your participation is completely voluntary and you can leave the experiment at any time by simply closing the browser window. If you have questions, you can always contact us at cecilie@clin.au.dk."),
+      p("The data you generate is completely anonymous. It will be used for research purposes and shared with other researchers in a publicly available research data repository. Your participation is completely voluntary and you can leave the experiment at any time by simply closing the browser window. If you have questions, you can always contact us at cecilie@clin.au.dk. By clicking the button below (I understand. Continue!) you confirm that you are at least 18 years old and you give your consent to participate."),
     )
   ),
   button_text = "I understand. Continue!"
@@ -395,7 +395,7 @@ years_instrument <- dropdown_page(
 
 duplets <- dropdown_page(
   label = "duplets",
-  prompt = p(strong("Have you taken this exact same test before?")),
+  prompt = p(strong("Did you take part in an experiment with exactly the same rhythms before?")),
   save_answer=TRUE,
   choices = c("Please select", "No", "Yes, once before", "Yes, twice before",	"Yes, three times before",	"Yes, four times before",	"Yes, five times before",	"Yes, six or more times before"),
   # alternative_choice = TRUE,
@@ -404,7 +404,7 @@ duplets <- dropdown_page(
   max_width_pixels = 250,
   validate = function(answer, ...) {
     if (answer=="Please select")
-      "Please let us know if you tried this exact same test before. We ask because it matters for the analyses of the data you provide. If you like, you can provide additional comments in the next and final question."
+      "Please let us know if you tried this exact same experiment before. We ask because it matters for the analyses of the data you provide. If you like, you can provide additional comments in the next and final question."
     else TRUE
   },
   on_complete = function(answer, state, ...) {
