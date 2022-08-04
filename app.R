@@ -3,7 +3,7 @@
 # # # This script makes a psychTestR implementation of
 # # # various online polyrhythm studies. NOTE: The corresponding js files
 # # # in ./musbeat only runs the pitch experiment. 
-# # # Date:16/3- 2022
+# # # Date:20/4- 2022
 # # # Author: Cecilie Møller
 # # # Project group: Above + Jan Stupacher, Alexandre Celma-Miralles, Peter Vuust
 # # ###################################################
@@ -12,7 +12,6 @@
 library(htmltools)
 library(psychTestR)
 library(tibble)
-
 
 
 jspsych_dir <- "jspsych-6.1.0"
@@ -61,9 +60,9 @@ ui_exp <- tags$div(
 )
 
 
-poly_ratio <- page(               #NB - this experiment is pitch only but named "poly_ratio" because it used to be part of the ratio/tempo/pitch study, and because we want to concatenate this data with the original pitch data
+poly_pitch <- page(               #NB - this experiment is pitch only but named "poly_ratio" because it used to be part of the ratio/tempo/pitch study, and because we want to concatenate this data with the original pitch data
   ui = ui_exp,
-  label = "poly_ratio",
+  label = "poly_pitch",
   get_answer = function(input, ...)
     input$jspsych_results,
   validate = function(answer, ...)
@@ -88,8 +87,9 @@ welcome <-
       p("You can expect this to take 10-15 minutes."),
       p("Please note: You have to be at least 18 years old to participate."),
       HTML("<br>"),
-      p("The data you generate is completely anonymous. It will be used for research purposes and shared with other researchers in a publicly available research data repository. Your participation is completely voluntary and you can leave the experiment at any time by simply closing the browser window. If you have questions, you can always contact us at cecilie@clin.au.dk. By clicking the button below (I understand. Continue!) you confirm that you are at least 18 years old and you give your consent to participate."),
-    )
+      HTML("<p style= 'font-size:14px'> <em>The data you generate is completely anonymous. It will be used for research purposes and shared with other researchers in a publicly available research data repository. Your participation is completely voluntary and you can leave the experiment at any time by simply closing the browser window. If you have questions, you can always contact the research group by emailing Cecilie Møller at cecilie@clin.au.dk.</em></p>"),
+      p("By clicking the button below (I understand. Continue!) you confirm that you are at least 18 years old and you give your consent to participate."),
+      )
   ),
   button_text = "I understand. Continue!"
        
@@ -193,7 +193,7 @@ sound_check<-one_button_page(
 age <-dropdown_page(
   label = "age",
   prompt = div(h4(strong("We would love to know more about you...")),
-               p("Thanks. You are done with the tapping part and we would like to ask just a few general questions about yourself before you leave us."),
+               p("Thanks! You are done with the tapping part and we would like to ask some questions about yourself and your musical background before you leave us."),
                p(strong ("What is your age?")),
                ),
   save_answer=TRUE,
@@ -202,7 +202,7 @@ age <-dropdown_page(
   max_width_pixels = 250,
   validate = function(answer, ...) {
     if (answer=="Please select")
-      "Please state your age (click the small arrow on the right of the box to see the options). We ask because it matters for the analyses of the data you provide."
+      "Please state your age (click the small arrow on the right of the box to see the options). "
     #else if (answer=="") 
    #   "Please answer the question. If you select 'Other' at the bottom of the list, please state the name of your browser in the designated field."
     else TRUE
@@ -331,7 +331,7 @@ ollen<-NAFC_page(
   choices = c("Nonmusician", "Music-loving nonmusician","Amateur musician","Serious amateur musician","Semiprofessional musician","Professional musician"),
   on_complete = function(answer, state, ...) {
     set_global(key = "ollen", value = answer, state = state)
-    if (answer == "Nonmusician"|answer =="Music-loving nonmusician") skip_n_pages(state,3)
+    if (answer == "Nonmusician"|answer =="Music-loving nonmusician") skip_n_pages(state,16)
   }
   ),
 
@@ -344,12 +344,14 @@ MT_06<-NAFC_page(
 ),
 
 # gold-msi instrument item
-instrument <-dropdown_page(
-  label = "instrument",
+instrument_1 <-dropdown_page(
+  label = "instrument_1",
   prompt = p(strong ("The instrument I play best (including voice) is...")), 
   save_answer=TRUE,
-  choices = c("Please select","I don't play any instrument", "alto", "basoon", "cello", "clarinete", "double bass", "drums", "flute", "guitar", "harp", "horn", 
-              "oboe", "piano", "saxophone", "trumpet", "tuba", "trombone",  "voice", "violin", "xylophone",  "I prefer not to tell you"),
+  choices = c("Please select", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
+              "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
+              "tuba", "violin", "voice", "I don't play any instrument"),
+  ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
   alternative_choice = TRUE,
   alternative_text = "Other (please state which)",
   next_button_text = "Next",
@@ -362,32 +364,260 @@ instrument <-dropdown_page(
     else TRUE
   },
   on_complete = function(answer, state, ...) {
-    set_global(key = "instrument", value = answer, state = state)
+    set_global(key = "instrument_1", value = answer, state = state)
   }
 ),
 
 # custom made question on instrument experience
 
-years_instrument <- dropdown_page(
-  label = "years_instr",
-  prompt = p(strong("For how many years have you played a musical instrument (including voice)?")),
+years_instrument_1 <- dropdown_page(
+  label = "years_instr_1",
+  prompt = p(strong("For how many years have you played this musical instrument?")),
   save_answer=TRUE,
-  choices = c("Please select", "I don't play any instrument", "Less than one year", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
-              "18",	"19",	"20",	"21",	"22",	"23",	"24",	"25",	"26",	"27",	"28",	"29",	"30",	"31",	"32",	"33","34",	"35",	"36",	"37",	"38",	"39",	"40",	"41",	"42",
-              "43",	"44",	"45",	"46",	"47",	"48",	"49",	"50",	"51",	"52",	"53",	"54",	"55",	"56",	"57",	"58",	"59",	"60",	"61",	"62",	"63",	"64","65",	"66",	"67",
-              "68",	"69",	"70",	"71",	"72",	"73",	"74",	"75",	"76",	"77",	"78",	"79",	"80 years or more", "I prefer not to tell you"),
+  choices = c("Please select", "Less than one year", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
+              "18",	"19",	"20", "more than 20 years", "I don't play any instrument"),
 
   next_button_text = "Next",
   max_width_pixels = 250,
   validate = function(answer, ...) {
     if (answer=="Please select")
-      "Please provide your best estimate of the number of years you have played a musical instrument (click the small arrow on the right of the box to see the options). We ask because it matters for the analyses of the data you provide."
+      "Please provide your best estimate of the number of years you have played this musical instrument (click the small arrow on the right of the box to see the options)."
     else TRUE
   },
   on_complete = function(answer, state, ...) {
-    set_global(key = "age", value = answer, state = state)
+    set_global(key = "years_instr_1", value = answer, state = state)
   }  
-) 
+),
+# custom made question on practice habits
+
+reg_play_1<-NAFC_page(
+  label = "reg_play_1",
+  prompt = p(strong ("When was the last time you played this instrument regularly?")),
+  choices = c("I am currently playing this on a regular basis", "I stopped playing regularly less than a year ago","I played this on a regular basis 1-3 years ago","I played this on a regular basis more than three years ago",
+              "I never played this instrument on a regular basis"),
+  on_complete = function(answer, state, ...) {
+    set_global(key = "reg_play_1", value = answer, state = state)
+  } 
+),
+
+hours_instrument_1 <- dropdown_page(
+  label = "hours_instr_1",
+  prompt = p(strong("On average, how many hour per week do/did you play this instrument?")),
+  save_answer=TRUE,
+  choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
+              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
+  
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please provide your best estimate of the number of years you have played this musical instrument (click the small arrow on the right of the box to see the options). "
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "hours_instr_1", value = answer, state = state)
+  }  
+),
+
+
+
+# instrument_2
+
+instrument_2 <-dropdown_page(
+  label = "instrument_2",
+  prompt = p(strong ("The instrument I play second best (including voice) is...")), 
+  save_answer=TRUE,
+  choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
+              "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
+              "tuba", "violin", "voice","I don't play any instrument"),
+  ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
+  alternative_choice = TRUE,
+  alternative_text = "Other (please state which)",
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please select the instrument you play second best from the dropdown menu."
+    else if (answer=="") 
+      "If your instrument is not on the list, please select 'Other' at the bottom of the list and write the name of the instrument you play second best in the designated field."
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "instrument_2", value = answer, state = state)
+    if (answer == "I already stated all the instruments that I play") skip_n_pages(state,8)
+  }
+),
+
+
+# custom made question on instrument experience
+
+years_instrument_2 <- dropdown_page(
+  label = "years_instr_2",
+  prompt = p(strong("For how many years have you played this musical instrument?")),
+  save_answer=TRUE,
+  choices = c("Please select", "Less than one year", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
+              "18",	"19",	"20", "more than 20 years", "I don't play any instrument"),
+  
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please provide your best estimate of the number of years you have played this musical instrument (click the small arrow on the right of the box to see the options)."
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "years_instr_2", value = answer, state = state)
+  }  
+),
+# custom made question on practice habits
+
+reg_play_2<-NAFC_page(
+  label = "reg_play_2",
+  prompt = p(strong ("When was the last time you played this instrument regularly?")),
+  choices = c("I am currently playing this on a regular basis", "I stopped playing regularly less than a year ago","I played this on a regular basis 1-3 years ago","I played this on a regular basis more than three years ago",
+              "I never played this instrument on a regular basis"),
+  on_complete = function(answer, state, ...) {
+    set_global(key = "reg_play_2", value = answer, state = state)
+  } 
+),
+
+hours_instrument_2 <- dropdown_page(
+  label = "hours_instr_2",
+  prompt = p(strong("On average, how many hour per week do/did you play this instrument?")),
+  save_answer=TRUE,
+  choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
+              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
+  
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please provide your best estimate of the number of years you have played this musical instrument (click the small arrow on the right of the box to see the options). "
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "hours_instr_2", value = answer, state = state)
+  }  
+),
+
+
+# instrument_3
+
+instrument_3 <-dropdown_page(
+  label = "instrument_3",
+  prompt = p(strong ("The instrument I play third best (including voice) is...")), 
+  save_answer=TRUE,
+  choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
+              "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
+              "tuba", "violin", "voice","I don't play any instrument"),
+  ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
+  alternative_choice = TRUE,
+  alternative_text = "Other (please state which)",
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please select the instrument you play third best from the dropdown menu."
+    else if (answer=="") 
+      "If your instrument is not on the list, please select 'Other' at the bottom of the list and write the name of the instrument you play third best in the designated field."
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "instrument_3", value = answer, state = state)
+    if (answer == "I already stated all the instruments that I play") skip_n_pages(state,4)
+  }
+),
+
+
+# custom made question on instrument experience
+
+years_instrument_3 <- dropdown_page(
+  label = "years_instr_3",
+  prompt = p(strong("For how many years have you played this musical instrument?")),
+  save_answer=TRUE,
+  choices = c("Please select", "Less than one year", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
+              "18",	"19",	"20", "more than 20 years", "I don't play any instrument"),
+  
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please provide your best estimate of the number of years you have played this musical instrument (click the small arrow on the right of the box to see the options)."
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "years_instr_3", value = answer, state = state)
+  }  
+),
+# custom made question on practice habits
+
+reg_play_3<-NAFC_page(
+  label = "reg_play_3",
+  prompt = p(strong ("When was the last time you played this instrument regularly?")),
+  choices = c("I am currently playing this on a regular basis", "I stopped playing regularly less than a year ago","I played this on a regular basis 1-3 years ago","I played this on a regular basis more than three years ago",
+              "I never played this instrument on a regular basis"),
+  on_complete = function(answer, state, ...) {
+    set_global(key = "reg_play_3", value = answer, state = state)
+  } 
+),
+
+hours_instrument_3 <- dropdown_page(
+  label = "hours_instr_3",
+  prompt = p(strong("On average, how many hour per week do/did you play this instrument?")),
+  save_answer=TRUE,
+  choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
+              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
+  
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please provide your best estimate of the number of years you have played this musical instrument (click the small arrow on the right of the box to see the options). "
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "hours_instr_3", value = answer, state = state)
+  }  
+), 
+
+other_instr<- text_input_page(
+  label="other_instr",
+  prompt= p(strong("Do you play any more instruments? If so, please let us know which in the text field below.")),
+  width = "400px",
+  save_answer = T,
+  button_text = "Next"
+),
+
+# STOMP (Rentfrow & Gosling, 2003): alternative, blues, classical, country, electronica/dance, rap/hip-hop, jazz, pop, religious, rock, soul/funk, folk, and sound tracks
+#(Rentfrow & Goldberg, Levitin, 2011) MUSIC: 
+# Mellow: soft rock, R & B, and adult contemporary ; 
+# Unpretentious: country and folk 
+# Sophisticated: classical, opera, jazz, and world 
+# Intense: rock, punk, and heavy metal 
+# Contemporary: rap, electronica, and pop
+
+genre <- dropdown_page(
+  label = "genre",
+  prompt = p(strong("Which genre do you play the most")),
+  save_answer=TRUE,
+  choices = c("Please select", "adult contemporary", "classical", "country", "electronica","folk", "heavy metal", "jazz", "opera","pop", "punk", "rap", "R&B", "rock", "soft rock", "world", "I don't play any instrument"),
+  alternative_choice = TRUE,
+  alternative_text = "Other - please state which?", 
+  next_button_text = "Next",
+  max_width_pixels = 250,
+  validate = function(answer, ...) {
+    if (answer=="Please select")
+      "Please provide your best estimate of the genre you play most (click the small arrow on the right of the box to see the options)."
+    else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "genre", value = answer, state = state)
+  }  
+)
+
+
+# mus exp ends here
+
 )
 
   
@@ -408,9 +638,28 @@ duplets <- dropdown_page(
     else TRUE
   },
   on_complete = function(answer, state, ...) {
-    set_global(key = "age", value = answer, state = state)
+    set_global(key = "duplets", value = answer, state = state)
+    if (answer == "No") skip_n_pages(state,2)
   }  
 )
+
+
+prev<-NAFC_page(
+  label = "prev",
+  prompt =div(h4(strong("Are you sure it was the same experiment?")),
+              p("We ran a similar version of this experiment two years ago."),
+              p("In some cases, the sounds were different (they consisted of polyrhythms with varying levels of complexity and/or tempo played on a cowbell, 
+                in some cases they were identical to the marimba sounds used in the polyrhythms in this experiment."),
+              p("Which of the following options apply to you:"),
+              p(strong ("I am sure I have previously participated in a polyrhythm experiment with...")),
+  ),
+  choices = c("Cowbell sounds", "Marimba sounds","I am not entirely sure"),
+  on_complete = function(answer, state, ...) {
+    set_global(key = "prev", value = answer, state = state)
+   
+  }
+)
+
 
 
 comments <- text_input_page(
@@ -443,23 +692,25 @@ thanks<-final_page(div(
 
 
 elts <- join(
-   intro,
+  intro,
+    elt_save_results_to_disk(complete = FALSE),
+  sound_check,
+  poly_pitch,
+   elt_save_results_to_disk(complete = FALSE), 
+  age,
+  gender,
    elt_save_results_to_disk(complete = FALSE),
-   sound_check,
-   poly_ratio,
-   elt_save_results_to_disk(complete = FALSE), # anything that is saved here counts as completed
-   age,
-   gender,
+  demographics,
    elt_save_results_to_disk(complete = FALSE),
-   demographics,
+  music_exp,
    elt_save_results_to_disk(complete = FALSE),
-   music_exp,
-   elt_save_results_to_disk(complete = FALSE),
-   duplets,
+  duplets,
    elt_save_results_to_disk(complete = TRUE),
-   comments,
+  prev,
    elt_save_results_to_disk(complete = TRUE),
-   thanks
+  comments,
+   elt_save_results_to_disk(complete = TRUE),
+  thanks
 )
 
 

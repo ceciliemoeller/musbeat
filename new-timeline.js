@@ -89,7 +89,7 @@ var instructions_II = {
     "and start tapping whenever you feel the beat.</p>" +
     "<p>Please continue tapping until the sound stops.</p>" +
     "<p>..........</p>"+
-    "<p>You will be asked to tap to 18 different rhythms.</p>" +
+    "<p>You will be asked to tap to 16 rhythms.</p>" +
     "<p>Are you ready? Good luck!</p>",
   choices: ["Start the experiment"],
   post_trial_gap: 1000
@@ -123,4 +123,17 @@ var test_procedure = {
   repetitions: 1
 }
 
+timeline.push(test_procedure);
+
+var halfway = {
+  type: "html-button-response",
+  stimulus: 
+    "<p>You are halfway though the tapping part of the experiment. " +  
+
+    "<p> Eight rhythms and a questionnaire to go!</p>",
+
+  choices: ["Continue the experiment"],
+  post_trial_gap: 1000
+};
+timeline.push(halfway);
 timeline.push(test_procedure);
