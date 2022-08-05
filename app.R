@@ -1,8 +1,10 @@
 
 # # ####################################################
-# # # This script makes a psychTestR implementation of
-# # # various online polyrhythm studies. NOTE: The corresponding js files
-# # # in ./musbeat only runs the pitch experiment. 
+# # # This script is a psychTestR implementation of MUSBEAT, 
+# # # an online study investigating the effect of pitch on beat perception in 2:3 and 3:4 polyrhythms. 
+# # # 
+# # # NOTE: The script is based on POLY_ONLINE which also include, ratio and tempo experiments reported in doi: 10.1371/journal.pone.0252174. 
+# # # 
 # # # Date:20/4- 2022
 # # # Author: Cecilie Møller
 # # # Project group: Above + Jan Stupacher, Alexandre Celma-Miralles, Peter Vuust
@@ -402,7 +404,7 @@ reg_play_1<-NAFC_page(
 
 hours_instrument_1 <- dropdown_page(
   label = "hours_instr_1",
-  prompt = p(strong("On average, how many hour per week do/did you play this instrument?")),
+  prompt = p(strong("On average, how many hours per week do/did you play this instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
               "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
@@ -483,7 +485,7 @@ reg_play_2<-NAFC_page(
 
 hours_instrument_2 <- dropdown_page(
   label = "hours_instr_2",
-  prompt = p(strong("On average, how many hour per week do/did you play this instrument?")),
+  prompt = p(strong("On average, how many hours per week do/did you play this instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
               "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
@@ -563,7 +565,7 @@ reg_play_3<-NAFC_page(
 
 hours_instrument_3 <- dropdown_page(
   label = "hours_instr_3",
-  prompt = p(strong("On average, how many hour per week do/did you play this instrument?")),
+  prompt = p(strong("On average, how many hours per week do/did you play this instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
               "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
@@ -589,6 +591,7 @@ other_instr<- text_input_page(
 ),
 
 # STOMP (Rentfrow & Gosling, 2003): alternative, blues, classical, country, electronica/dance, rap/hip-hop, jazz, pop, religious, rock, soul/funk, folk, and sound tracks
+
 #(Rentfrow & Goldberg, Levitin, 2011) MUSIC: 
 # Mellow: soft rock, R & B, and adult contemporary ; 
 # Unpretentious: country and folk 
@@ -596,11 +599,14 @@ other_instr<- text_input_page(
 # Intense: rock, punk, and heavy metal 
 # Contemporary: rap, electronica, and pop
 
+
 genre <- dropdown_page(
   label = "genre",
-  prompt = p(strong("Which genre do you play the most")),
+  prompt = p(strong("Which genre do you play the most?")),
   save_answer=TRUE,
-  choices = c("Please select", "adult contemporary", "classical", "country", "electronica","folk", "heavy metal", "jazz", "opera","pop", "punk", "rap", "R&B", "rock", "soft rock", "world", "I don't play any instrument"),
+  # choices = c("Please select", "adult contemporary", "classical", "country", "electronica","folk", "heavy metal", "jazz", "opera","pop", "punk", "rap", "R&B", "rock", "soft rock", "world", "I don't play any instrument"),
+  choices = c("Please select","Alternative", "bluegrass", "blues", "classical", "country", "electronica/dance", "folk", "funk", "gospel", "heavy metal", "world", "jazz", "new age", "oldies", "opera", "pop", "punk", "rap/hiphop",
+              "reggae", "religious", "rock", "soul/R&B", "soundtracks/theme songs"),
   alternative_choice = TRUE,
   alternative_text = "Other - please state which?", 
   next_button_text = "Next",
@@ -608,6 +614,8 @@ genre <- dropdown_page(
   validate = function(answer, ...) {
     if (answer=="Please select")
       "Please provide your best estimate of the genre you play most (click the small arrow on the right of the box to see the options)."
+    else if (answer=="") 
+      "If you select 'Other' at the bottom of the list, please write in the designated field which genre you play the most."
     else TRUE
   },
   on_complete = function(answer, state, ...) {
