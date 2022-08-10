@@ -41,8 +41,7 @@ stimuliExpRandomizer.randomizeStimuli = function(type) {
             // "sounds/ratio/poly_ratio_loudness_check.mp3",
         ],
         dataArray = [
-            [           
-                           
+            [ 
                 "sounds/pitch/p01_2-C2-07_3-C5-07.mp3",
                 "sounds/pitch/p02_2-C2-01_3-C5-13.mp3",
                 "sounds/pitch/p03_2-C5-07_3-C2-07.mp3",

@@ -154,7 +154,7 @@ browser <- dropdown_page(
 headphones<-dropdown_page(
   label = "headphones",
   prompt = div(h4(strong("Headphones?")),
-               p("If at all possible, please use headphones!"),
+               p("To take part in this experiment, please use headphones!"),
                p("How do you play the sounds?"),
   ),
   save_answer=TRUE,
@@ -584,7 +584,7 @@ hours_instrument_3 <- dropdown_page(
 
 other_instr<- text_input_page(
   label="other_instr",
-  prompt= p(strong("Do you play any more instruments? If so, please let us know which in the text field below.")),
+  prompt= p(strong("Do you play any more instruments? If so, please let us know which by typing it into the text field below.")),
   width = "400px",
   save_answer = T,
   button_text = "Next"

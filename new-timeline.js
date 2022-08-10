@@ -127,10 +127,9 @@ timeline.push(test_procedure);
 
 var halfway = {
   type: "html-button-response",
-  stimulus: 
-    "<p>Great! You are halfway though the tapping part of the experiment. " +  
-
-    "<p> Eight rhythms and a questionnaire to go!</p>",
+  stimulus: "<h4><strong>Breaktime!</strong></h4>" +
+    "<p>Great - you are halfway though the tapping part of the experiment. " +  
+    "<p> Eight rhythms and a questionnaire to go!</p>"+
     "<p> Shake your shoulders for as long as you need and then...</p>",
 
   choices: ["Continue the experiment"],
