@@ -701,7 +701,7 @@ thanks<-final_page(div(
 
 elts <- join(
   intro,
-    elt_save_results_to_disk(complete = FALSE),
+  elt_save_results_to_disk(complete = FALSE),
   sound_check,
   poly_pitch,
    elt_save_results_to_disk(complete = FALSE), 
