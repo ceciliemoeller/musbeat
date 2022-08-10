@@ -43,10 +43,14 @@ stimuliExpRandomizer.randomizeStimuli = function(type) {
         dataArray = [
             [           
                            
-                "sounds/pitch/p01_marimba_2-C3-07_3-C5-07.mp3",
-                "sounds/pitch/p02_marimba_2-C3-01_3-C5-13.mp3",
-                "sounds/pitch/p03_marimba_2-C5-07_3-C3-07.mp3",
-                "sounds/pitch/p04_marimba_2-C5-01_3-C3-13.mp3",
+                "sounds/pitch/p01_2-C2-07_3-C5-07.mp3",
+                "sounds/pitch/p02_2-C2-01_3-C5-13.mp3",
+                "sounds/pitch/p03_2-C5-07_3-C2-07.mp3",
+                "sounds/pitch/p04_2-C5-01_3-C2-13.mp3",
+                "sounds/pitch/p05_3-C2-07_4-C5-07.mp3",
+                "sounds/pitch/p06_3-C2-13_4-C5-01.mp3",
+                "sounds/pitch/p07_3-C5-07_4-C2-07.mp3",
+                "sounds/pitch/p08_3-C5-13_4-C2-01.mp3"
 
                 // "sounds/pitch/p01_2-C3-07_3-C5-07.mp3",
                 // "sounds/pitch/p02_2-C3-04_3-C5-10.mp3",
@@ -54,12 +58,12 @@ stimuliExpRandomizer.randomizeStimuli = function(type) {
                 // "sounds/pitch/p04_2-C5-07_3-C3-07.mp3",
                 // "sounds/pitch/p05_2-C5-04_3-C3-10.mp3",
                 // "sounds/pitch/p06_2-C5-01_3-C3-13.mp3",
-                "sounds/pitch/p07_3-C3-07_4-C5-07.mp3",
+                // "sounds/pitch/p07_3-C3-07_4-C5-07.mp3",
                 // "sounds/pitch/p08_3-C3-10_4-C5-04.mp3",              
-                "sounds/pitch/p09_3-C3-13_4-C5-01.mp3",               
-                "sounds/pitch/p10_3-C5-07_4-C3-07.mp3",              
+                // "sounds/pitch/p09_3-C3-13_4-C5-01.mp3",               
+                // "sounds/pitch/p10_3-C5-07_4-C3-07.mp3",              
                 // "sounds/pitch/p11_3-C5-10_4-C3-04.mp3",            
-                "sounds/pitch/p12_3-C5-13_4-C3-01.mp3"
+                // "sounds/pitch/p12_3-C5-13_4-C3-01.mp3",
                 // "sounds/pitch/p13_2-C4-07_3-C4-07.mp3",
                 // "sounds/pitch/p14_2-C4-04_3-C4-10.mp3",
                 // "sounds/pitch/p15_2-C4-01_3-C4-13.mp3",
