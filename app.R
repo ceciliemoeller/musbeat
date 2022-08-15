@@ -102,13 +102,15 @@ welcome <-
 device <-dropdown_page(
   label = "device",
   prompt = div(h4(strong("Device")),
+              
                p("First, we need to know which device you are using to take the test?"),
                p("If possible, use a device with a touchscreen, alternatively a clickpad or mouse, rather than a laptop touchpad."),
                p(strong ("You can not use a keyboard.")),
                p("Please make sure you stick with your chosen input method throughout the test."),
+               HTML("<p style= 'font-size:14px'> <em>Note, that once you click the next button, you can’t return to previous pages.</em></p>"),
                ),
   save_answer=TRUE,
-  choices = c("Select current device", "Smartphone (touchscreen)","Tablet (touchscreen)","Laptop (click button/clickpad)", "Laptop (external mouse)", "Desktop (external mouse)"),
+  choices = c("Select current device", "Smartphone (touchscreen)","Tablet (touchscreen)","Laptop (touchscreen)", "Laptop (click button/clickpad)", "Laptop (external mouse)", "Desktop (external mouse)"),
   alternative_choice = TRUE,
   alternative_text = "Other - please state which?",
   next_button_text = "Next",
@@ -316,7 +318,14 @@ language <- text_input_page(
   prompt = p(strong ("Which language(s) do you consider your mother tongue (the language(s) of the family you grew up in)?"),
              p("If you are bilingual, please write the names of both languages beginning with the one with the strongest influence in your daily life.")),
   save_answer=TRUE,
-  button_text = "Next"
+  button_text = "Next",
+  validate = function(answer, ...) {if (answer=="")
+    "Please state the language(s) used in the family you grew up in."
+  else TRUE
+  },
+  on_complete = function(answer, state, ...) {
+    set_global(key = "language", value = answer, state = state)
+  }  
 )
 )
 
@@ -605,7 +614,7 @@ genre <- dropdown_page(
   prompt = p(strong("Which genre do you play the most?")),
   save_answer=TRUE,
   # choices = c("Please select", "adult contemporary", "classical", "country", "electronica","folk", "heavy metal", "jazz", "opera","pop", "punk", "rap", "R&B", "rock", "soft rock", "world", "I don't play any instrument"),
-  choices = c("Please select","Alternative", "bluegrass", "blues", "classical", "country", "electronica/dance", "folk", "funk", "gospel", "heavy metal", "world", "jazz", "new age", "oldies", "opera", "pop", "punk", "rap/hiphop",
+  choices = c("Please select","alternative", "bluegrass", "blues", "classical", "country", "electronica/dance", "folk", "funk", "gospel", "heavy metal", "world", "jazz", "new age", "oldies", "opera", "pop", "punk", "rap/hiphop",
               "reggae", "religious", "rock", "soul/R&B", "soundtracks/theme songs"),
   alternative_choice = TRUE,
   alternative_text = "Other - please state which?", 
@@ -633,7 +642,7 @@ genre <- dropdown_page(
 
 duplets <- dropdown_page(
   label = "duplets",
-  prompt = p(strong("Did you take part in an experiment with exactly the same rhythms before?")),
+  prompt = p(strong("Did you take part in this experiment within the last weeks?")),
   save_answer=TRUE,
   choices = c("Please select", "No", "Yes, once before", "Yes, twice before",	"Yes, three times before",	"Yes, four times before",	"Yes, five times before",	"Yes, six or more times before"),
   # alternative_choice = TRUE,
@@ -642,31 +651,30 @@ duplets <- dropdown_page(
   max_width_pixels = 250,
   validate = function(answer, ...) {
     if (answer=="Please select")
-      "Please let us know if you tried this exact same experiment before. We ask because it matters for the analyses of the data you provide. If you like, you can provide additional comments in the next and final question."
+      "Please let us know if you tried this exact same experiment recently. We ask because it matters for the analyses of the data you provide. If you like, you can provide additional comments in the next and final question."
     else TRUE
   },
   on_complete = function(answer, state, ...) {
     set_global(key = "duplets", value = answer, state = state)
-    if (answer == "No") skip_n_pages(state,2)
   }  
 )
 
 
-prev<-NAFC_page(
-  label = "prev",
-  prompt =div(h4(strong("Are you sure it was the same experiment?")),
-              p("We ran a similar version of this experiment two years ago."),
-              p("In some cases, the sounds were different (they consisted of polyrhythms with varying levels of complexity and/or tempo played on a cowbell, 
-                in some cases they were identical to the marimba sounds used in the polyrhythms in this experiment."),
-              p("Which of the following options apply to you:"),
-              p(strong ("I am sure I have previously participated in a polyrhythm experiment with...")),
-  ),
-  choices = c("Cowbell sounds", "Marimba sounds","I am not entirely sure"),
-  on_complete = function(answer, state, ...) {
-    set_global(key = "prev", value = answer, state = state)
-   
-  }
-)
+# prev<-NAFC_page(
+#   label = "prev",
+#   prompt =div(h4(strong("Are you sure it was the same experiment?")),
+#               p("We ran a similar version of this experiment two years ago."),
+#               p("In some cases, the sounds were different (they consisted of polyrhythms with varying levels of complexity and/or tempo played on a cowbell, 
+#                 in some cases they were identical to the marimba sounds used in the polyrhythms in this experiment."),
+#               p("Which of the following options apply to you:"),
+#               p(strong ("I am sure I have previously participated in a polyrhythm experiment with...")),
+#   ),
+#   choices = c("Cowbell sounds", "Marimba sounds","I am not entirely sure"),
+#   on_complete = function(answer, state, ...) {
+#     set_global(key = "prev", value = answer, state = state)
+#    
+#   }
+# )
 
 
 
@@ -714,8 +722,8 @@ elts <- join(
    elt_save_results_to_disk(complete = FALSE),
   duplets,
    elt_save_results_to_disk(complete = TRUE),
-  prev,
-   elt_save_results_to_disk(complete = TRUE),
+  # prev,
+  #  elt_save_results_to_disk(complete = TRUE),
   comments,
    elt_save_results_to_disk(complete = TRUE),
   thanks

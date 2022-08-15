@@ -74,7 +74,7 @@ var instructions_I = {
       "<p> The beat is like a clock’s tick.</p>" +
       "<p>The beat is the steady pulse you feel when listening to music.</p>" +
       "<p>The beat is what you would naturally clap along to, or tap your foot to.</p>" +
-      "<p class = 'gap-above'> Some of the rhythms are rather complex. Do not try to imitate the rhythms. " +
+      "<p class = 'gap-above'> Do not try to imitate the rhythms. " +
     "Your task is to simply tap along to the steady underlying beat.</p>",
   choices: ["I got it! Continue"]
   };
