@@ -352,6 +352,10 @@ MT_06<-NAFC_page(
   label = "MT_06",
   prompt = p(strong ("I can play the following number of musical instruments:")),
   choices = c("0", "1","2","3","4","5","6 or more"),
+  on_complete = function(answer, state, ...) {
+    set_global(key = "MT_06", value = answer, state = state)
+    if (answer == "0") skip_n_pages(state,15)
+  }
 ),
 
 # gold-msi instrument item
@@ -712,7 +716,7 @@ elts <- join(
   elt_save_results_to_disk(complete = FALSE),
   sound_check,
   poly_pitch,
-   elt_save_results_to_disk(complete = FALSE), 
+   elt_save_results_to_disk(complete = FALSE),
   age,
   gender,
    elt_save_results_to_disk(complete = FALSE),
