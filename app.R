@@ -440,7 +440,7 @@ instrument_2 <-dropdown_page(
   save_answer=TRUE,
   choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
               "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
-              "tuba", "violin", "voice","I don't play any instrument"),
+              "tuba", "violin", "voice"),
   ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
   alternative_choice = TRUE,
   alternative_text = "Other (please state which)",
@@ -467,7 +467,7 @@ years_instrument_2 <- dropdown_page(
   prompt = p(strong("For how many years have you played this musical instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one year", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
-              "18",	"19",	"20", "more than 20 years", "I don't play any instrument"),
+              "18",	"19",	"20", "more than 20 years"),
   
   next_button_text = "Next",
   max_width_pixels = 250,
@@ -497,7 +497,7 @@ hours_instrument_2 <- dropdown_page(
   prompt = p(strong("On average, how many hours per week do/did you play this instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
-              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
+              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis"),
   
   next_button_text = "Next",
   max_width_pixels = 250,
@@ -520,7 +520,7 @@ instrument_3 <-dropdown_page(
   save_answer=TRUE,
   choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
               "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
-              "tuba", "violin", "voice","I don't play any instrument"),
+              "tuba", "violin", "voice"),
   ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
   alternative_choice = TRUE,
   alternative_text = "Other (please state which)",
@@ -547,7 +547,7 @@ years_instrument_3 <- dropdown_page(
   prompt = p(strong("For how many years have you played this musical instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one year", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
-              "18",	"19",	"20", "more than 20 years", "I don't play any instrument"),
+              "18",	"19",	"20", "more than 20 years"),
   
   next_button_text = "Next",
   max_width_pixels = 250,
@@ -577,7 +577,7 @@ hours_instrument_3 <- dropdown_page(
   prompt = p(strong("On average, how many hours per week do/did you play this instrument?")),
   save_answer=TRUE,
   choices = c("Please select", "Less than one hour", "1",	"2",	"3",	"4",	"5",	"6",	"7",	"8",	"9",	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",
-              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis", "I don't play any instrument"),
+              "18",	"19",	"20", "more than 20 hours", "I never played this instrument on a regular basis"),
   
   next_button_text = "Next",
   max_width_pixels = 250,
