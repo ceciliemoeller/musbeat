@@ -358,15 +358,14 @@ MT_06<-NAFC_page(
   }
 ),
 
-# gold-msi instrument item
+# instruments
 instrument_1 <-dropdown_page(
   label = "instrument_1",
   prompt = p(strong ("The instrument I play best (including voice) is...")), 
   save_answer=TRUE,
-  choices = c("Please select", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
-              "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
+  choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
+              "double bass", "drums", "flute", "guitar", "harp", "keyboard", "oboe", "organ", "piano", "piccolo", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "timpani","trumpet", 
               "tuba", "violin", "voice", "I don't play any instrument"),
-  ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
   alternative_choice = TRUE,
   alternative_text = "Other (please state which)",
   next_button_text = "Next",
@@ -443,9 +442,8 @@ instrument_2 <-dropdown_page(
   prompt = p(strong ("The instrument I play second best (including voice) is...")), 
   save_answer=TRUE,
   choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
-              "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
+              "double bass", "drums", "flute", "guitar", "harp", "keyboard", "oboe", "organ", "piano", "piccolo", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "timpani","trumpet", 
               "tuba", "violin", "voice"),
-  ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
   alternative_choice = TRUE,
   alternative_text = "Other (please state which)",
   next_button_text = "Next",
@@ -523,9 +521,8 @@ instrument_3 <-dropdown_page(
   prompt = p(strong ("The instrument I play third best (including voice) is...")), 
   save_answer=TRUE,
   choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
-              "double bass", "drums", "flute", "guitar", "harp", "oboe", "organ", "piano", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "trumpet", 
+              "double bass", "drums", "flute", "guitar", "harp", "keyboard", "oboe", "organ", "piano", "piccolo", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "timpani","trumpet", 
               "tuba", "violin", "voice"),
-  ############## should we add piccolo, timpani, percussion? If so, this should be stated in the preregistration! ##########################################################################
   alternative_choice = TRUE,
   alternative_text = "Other (please state which)",
   next_button_text = "Next",
