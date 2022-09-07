@@ -2,10 +2,10 @@
 # # ####################################################
 # # # This script is a psychTestR implementation of MUSBEAT, 
 # # # an online study investigating the effect of pitch on beat perception in 2:3 and 3:4 polyrhythms. 
-# # # 
+# # # Data collection commenced early September 2022
 # # # NOTE: The script is based on POLY_ONLINE which also include, ratio and tempo experiments reported in doi: 10.1371/journal.pone.0252174. 
 # # # 
-# # # Date:20/4- 2022
+# # # Date:20/04:07/09- 2022
 # # # Author: Cecilie Møller
 # # # Project group: Above + Jan Stupacher, Alexandre Celma-Miralles, Peter Vuust
 # # ###################################################
@@ -62,7 +62,7 @@ ui_exp <- tags$div(
 )
 
 
-poly_pitch <- page(               #NB - this experiment is pitch only but named "poly_ratio" because it used to be part of the ratio/tempo/pitch study, and because we want to concatenate this data with the original pitch data
+poly_pitch <- page(
   ui = ui_exp,
   label = "poly_pitch",
   get_answer = function(input, ...)
@@ -363,7 +363,7 @@ instrument_1 <-dropdown_page(
   label = "instrument_1",
   prompt = p(strong ("The instrument I play best (including voice) is...")), 
   save_answer=TRUE,
-  choices = c("Please select", "I already stated all the instruments that I play", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
+  choices = c("Please select", "bass guitar", "clarinet (alto)","clarinet (basset)", "clarinet (soprano)", "contrabassoon", 
               "double bass", "drums", "flute", "guitar", "harp", "keyboard", "oboe", "organ", "piano", "piccolo", "saxophone (alto)", "saxophone (soprano)", "sousaphone", "timpani","trumpet", 
               "tuba", "violin", "voice", "I don't play any instrument"),
   alternative_choice = TRUE,
@@ -646,8 +646,6 @@ duplets <- dropdown_page(
   prompt = p(strong("Did you take part in this experiment within the last weeks?")),
   save_answer=TRUE,
   choices = c("Please select", "No", "Yes, once before", "Yes, twice before",	"Yes, three times before",	"Yes, four times before",	"Yes, five times before",	"Yes, six or more times before"),
-  # alternative_choice = TRUE,
-  # alternative_text = "I prefer not to tell you",
   next_button_text = "Next",
   max_width_pixels = 250,
   validate = function(answer, ...) {
@@ -659,24 +657,6 @@ duplets <- dropdown_page(
     set_global(key = "duplets", value = answer, state = state)
   }  
 )
-
-
-# prev<-NAFC_page(
-#   label = "prev",
-#   prompt =div(h4(strong("Are you sure it was the same experiment?")),
-#               p("We ran a similar version of this experiment two years ago."),
-#               p("In some cases, the sounds were different (they consisted of polyrhythms with varying levels of complexity and/or tempo played on a cowbell, 
-#                 in some cases they were identical to the marimba sounds used in the polyrhythms in this experiment."),
-#               p("Which of the following options apply to you:"),
-#               p(strong ("I am sure I have previously participated in a polyrhythm experiment with...")),
-#   ),
-#   choices = c("Cowbell sounds", "Marimba sounds","I am not entirely sure"),
-#   on_complete = function(answer, state, ...) {
-#     set_global(key = "prev", value = answer, state = state)
-#    
-#   }
-# )
-
 
 
 comments <- text_input_page(
@@ -723,8 +703,6 @@ elts <- join(
    elt_save_results_to_disk(complete = FALSE),
   duplets,
    elt_save_results_to_disk(complete = TRUE),
-  # prev,
-  #  elt_save_results_to_disk(complete = TRUE),
   comments,
    elt_save_results_to_disk(complete = TRUE),
   thanks
